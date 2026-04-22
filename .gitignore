@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# FastAPI / local files
+uploads/
+media/
+storage/
+tmp/
+temp/
+
+# Audio / video files
+*.wav
+*.mp3
+*.m4a
+*.webm
+*.mp4
+*.mov
+
+# Test / cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Database / local dev
+*.sqlite3
+*.db
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
