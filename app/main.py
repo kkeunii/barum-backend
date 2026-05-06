@@ -8,7 +8,3 @@ app = FastAPI(title="Speech Learning API")
 app.include_router(api_router, prefix="/api")
 register_exception_handlers(app)
 
-
-@app.get("/health")
-async def health_check():
-    return {"status": "ok"}
