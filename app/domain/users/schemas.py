@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from datetime import datetime
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -10,10 +13,10 @@ class UserCreateRequest(BaseModel):
     """
 
     learner_code: str = Field(..., min_length=1, max_length=100)
-    display_name: str | None = Field(default=None, max_length=50)
-    age_group: str | None = Field(default=None, max_length=50)
-    native_language: str | None = Field(default=None, max_length=50)
-    korean_exposure_level: str | None = Field(default=None, max_length=50)
+    display_name: Optional[str] = Field(default=None, max_length=50)
+    age_group: Optional[str] = Field(default=None, max_length=50)
+    native_language: Optional[str] = Field(default=None, max_length=50)
+    korean_exposure_level: Optional[str] = Field(default=None, max_length=50)
 
 
 class UserResponse(BaseModel):
@@ -23,10 +26,10 @@ class UserResponse(BaseModel):
 
     id: UUID
     learner_code: str
-    display_name: str | None
-    age_group: str | None
-    native_language: str | None
-    korean_exposure_level: str | None
+    display_name: Optional[str]
+    age_group: Optional[str]
+    native_language: Optional[str]
+    korean_exposure_level: Optional[str]
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)

@@ -1,4 +1,4 @@
-from app.core.exceptions import AppException
+from app.core.exception import AppException
 
 
 class UserNotFoundException(AppException):

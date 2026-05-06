@@ -1,14 +1,16 @@
+from __future__ import annotations
+
 from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.domains.users.exceptions import (
+from app.domain.users.exceptions import (
     DuplicateLearnerCodeException,
     UserNotFoundException,
 )
-from app.domains.users.models import User
-from app.domains.users.repository import UserRepository
-from app.domains.users.schemas import UserCreateRequest
+from app.domain.users.models import User
+from app.domain.users.repository import UserRepository
+from app.domain.users.schemas import UserCreateRequest
 
 
 class UserService:

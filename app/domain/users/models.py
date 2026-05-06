@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import uuid
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import DateTime, String, func
 from sqlalchemy.dialects.postgresql import UUID
@@ -29,10 +32,10 @@ class User(Base):
         nullable=False,
     )
 
-    display_name: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    age_group: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    native_language: Mapped[str | None] = mapped_column(String(50), nullable=True)
-    korean_exposure_level: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    display_name: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    age_group: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    native_language: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    korean_exposure_level: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
