@@ -36,3 +36,27 @@ async def get_user(
     """
 
     return await user_service.get_user(user_id)
+
+
+@router.get("/{user_id}/attempts/recent")
+async def get_recent_attempts(
+    user_id: int,
+    user_service: UserService = Depends(get_user_service),
+):
+    return await user_service.get_recent_attempts(user_id)
+
+
+@router.get("/{user_id}/weak-phonemes")
+async def get_weak_phonemes(
+    user_id: int,
+    user_service: UserService = Depends(get_user_service),
+):
+    return await user_service.get_weak_phonemes(user_id)
+
+
+@router.get("/{user_id}/stats")
+async def get_user_stats(
+    user_id: int,
+    user_service: UserService = Depends(get_user_service),
+):
+    return await user_service.get_stats(user_id)

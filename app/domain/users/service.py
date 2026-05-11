@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.domain.attempts.storage import get_attempts_by_user
 from app.domain.users.exceptions import (
     DuplicateLearnerCodeException,
     UserNotFoundException,
@@ -51,3 +52,46 @@ class UserService:
             raise UserNotFoundException()
 
         return user
+
+    async def get_recent_attempts(self, user_id: int) -> list[dict[str, object]]:
+        attempts = get_attempts_by_user(str(user_id))
+        sorted_attempts = sorted(
+            attempts,
+            key=lambda attempt: attempt.get("updated_at", ""),
+            reverse=True,
+        )
+        return sorted_attempts[:10]
+
+    async def get_weak_phonemes(self, user_id: int) -> dict[str, int]:
+        attempts = get_attempts_by_user(str(user_id))
+        counts: dict[str, int] = {}
+        for attempt in attempts:
+            top_mismatch = attempt.get("top_mismatch")
+            if isinstance(top_mismatch, dict):
+                group = top_mismatch.get("target_group") or attempt.get("target_phoneme_group")
+                if group:
+                    counts[group] = counts.get(group, 0) + 1
+        return counts
+
+    async def get_stats(self, user_id: int) -> dict[str, object]:
+        attempts = get_attempts_by_user(str(user_id))
+        completed_attempts = [
+            attempt for attempt in attempts if attempt.get("status") == "completed"
+        ]
+        average_score = None
+        if completed_attempts:
+            average_score = round(
+                sum(
+                    float(attempt.get("score", 0) or 0)
+                    for attempt in completed_attempts
+                )
+                / len(completed_attempts),
+                2,
+            )
+        return {
+            "user_id": user_id,
+            "total_attempts": len(attempts),
+            "completed_attempts": len(completed_attempts),
+            "average_score": average_score,
+            "weak_phoneme_groups": await self.get_weak_phonemes(user_id),
+        }
