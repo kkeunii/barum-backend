@@ -22,15 +22,15 @@ async def get_lessons(
 
 
 @router.get(
-    "/{lessonid}",
+    "/{lesson_id}",
     response_model=LessonResponse,
 )
 async def get_lesson(
-    lessonid: int,
+    lesson_id: str,
     lesson_service: LessonService = Depends(get_lesson_service),
 ):
     """
     레슨 상세 조회 API.
     """
 
-    return await lesson_service.get_lesson(lessonid)
+    return await lesson_service.get_lesson(lesson_id)
