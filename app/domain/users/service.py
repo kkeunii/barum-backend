@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from uuid import UUID
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain.users.exceptions import (
@@ -46,7 +44,7 @@ class UserService:
 
         return saved_user
 
-    async def get_user(self, user_id: UUID) -> User:
+    async def get_user(self, user_id: int) -> User:
         user = await self.user_repository.get_by_id(user_id)
 
         if user is None:

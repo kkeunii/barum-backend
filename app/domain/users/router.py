@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from fastapi import APIRouter, Depends, status
 
 from app.domain.users.dependencies import get_user_service
@@ -30,7 +28,7 @@ async def create_user(
     response_model=UserResponse,
 )
 async def get_user(
-    user_id: UUID,
+    user_id: int,
     user_service: UserService = Depends(get_user_service),
 ):
     """

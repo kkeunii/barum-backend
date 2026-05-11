@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from datetime import datetime
 from typing import Optional
-from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -24,7 +23,7 @@ class UserResponse(BaseModel):
     사용자 응답 DTO.
     """
 
-    id: UUID
+    user_id: int
     learner_code: str
     display_name: Optional[str]
     age_group: Optional[str]

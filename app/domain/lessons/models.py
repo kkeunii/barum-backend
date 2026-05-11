@@ -14,7 +14,7 @@ class Lesson(Base):
     레슨 ORM 모델.
     """
 
-    __tablename__ = "레슨"
+    __tablename__ = "lessons"
 
     lessons_id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
     title: Mapped[str] = mapped_column(String(100), nullable=False)
