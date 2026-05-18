@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import BigInteger, Boolean, DateTime, String, Text, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+
+if TYPE_CHECKING:
+    from app.domain.scenes.models import Scene
 
 
 class Lesson(Base):
@@ -35,4 +38,10 @@ class Lesson(Base):
         DateTime(timezone=True),
         nullable=False,
         server_default=func.now(),
+    )
+
+    scenes: Mapped[list["Scene"]] = relationship(
+        "Scene",
+        back_populates="lesson",
+        order_by="Scene.order_index",
     )
