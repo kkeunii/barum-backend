@@ -1,21 +1,17 @@
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict
 
-from app.domain.attempts.analysis import run_full_analysis_from_metadata
 from app.domain.attempts.exceptions import (
     AttemptInvalidRequestException,
     AttemptNotFoundException,
     AttemptNotReadyException,
 )
 from app.domain.attempts.storage import (
-    ATTEMPTS_DIR,
     AttemptNotFoundError,
     create_attempt,
     get_attempt,
-    get_attempt_audio_dir,
     get_phoneme_analysis,
     get_pitch_analysis,
-    list_attempt_summaries,
     save_analysis_result,
     update_attempt,
 )
@@ -47,6 +43,8 @@ class AttemptService:
         )
 
         try:
+            from app.domain.attempts.analysis import run_full_analysis_from_metadata
+
             analysis_result = run_full_analysis_from_metadata(
                 attempt["utterance_id"],
                 audio_path,
