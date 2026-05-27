@@ -80,10 +80,14 @@ def run_full_analysis_from_metadata(
         metadata.target_phoneme_group,
     )
 
-    prosody_result = score_prosody(reference_audio_path, uploaded_audio_path)
+    prosody_result = score_prosody(
+        reference_audio_path,
+        uploaded_audio_path,
+        expected_text,
+        metadata.target_prosody_type,
+    )
     if reference_reason:
         prosody_result["reason"] = reference_reason
-    prosody_result["target_prosody_type"] = metadata.target_prosody_type
 
     feedback = generate_feedback(
         target_mismatched_items,
